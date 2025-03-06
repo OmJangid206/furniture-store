@@ -1,0 +1,116 @@
+{% extends "index.html" %}
+{% load cart %}
+{% load custom_filter %}
+{% load static %}
+
+<!--header-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/view-order.css' %}" />
+<style>
+    .cancel {
+    background-color: #898a89; 
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 25px;
+
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    .cancel a{
+        text-decoration: none;
+        font-weight: 700;
+        font-size: medium;
+        color: white;
+
+    }
+    .cancel:hover {
+        background-color: #3e3d3d; 
+    }
+
+</style>
+{% endblock head %}
+
+<!--body-->
+{% block body %}
+<div class="container">
+    <div class="shipping-details">
+        <div class="card shadow">
+            <div class="card-header">
+                <h3>Shipping Details</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="fname">First Name:</label>
+                    <input type="text" id="fname" class="form-control" value="{{ order.fname }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="lname">Last Name:</label>
+                    <input type="text" id="lname" class="form-control" value="{{ order.lname }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" class="form-control" value="{{ order.phone }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" class="form-control" disabled>{{ order.address }}, {{ order.city }}, {{ order.state }}, {{ order.country }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Zip Code:</label>
+                    <input type="text" id="pincode" class="form-control" value="{{ order.pincode }}" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="order-summary">
+        <div class="card shadow">
+            <div class="card-header">
+                <h3>Order Summary</h3>
+                <a href="{% url 'orders' %}" class="back-button"><i class="fa fa-reply"></i> Back</a>
+
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in orderitems %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.price }}</td>
+                            <td><img style="height: 80px; width: 80px; border-radius: 10px;" width="60px" src="{{ item.product.image.url }}" alt=""></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="order-summary">
+                    <h5>Grand total: {{ order.total_price }}</h5>
+                    <p>Payment Mode: {{ order.payment_mode }}</p>
+                    <p>Status: {{ order.status }}</p>
+                    <p>Tracking Number: {{ order.tracking_no }}</p>
+                </div>
+                <button class="cancel" >
+                    <a href="{% url 'cancel_order' order.id %}">Cancel Order</a>
+                </button>
+            </div>
+           
+        </div>
+       
+    </div>
+</div>
+
+
+{% endblock body %}
+
+<!--Footer -->
+{% block footer %}
+{% endblock footer %}

@@ -1,0 +1,89 @@
+body {
+    height: 100%;
+}
+#cross {
+    cursor: pointer;
+}
+.reset-container {
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 1em;
+    padding: 4em;
+    margin: 10% auto;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container label {
+    font-size: medium;
+    width: 100%;
+    margin: .5em auto .3em 0;
+}
+.container input {
+    width: 100%;
+    max-width: 400px;
+    height: 2.5em;
+    border-radius: 3px;
+    border: solid #707070 1px;
+    padding: 0 7px;
+    margin-bottom: 1em;
+}
+.user {
+    margin-bottom: 1em;
+}
+.password {
+    margin-bottom: 1em;
+}
+.reset-button {
+    width: 100%;
+    padding: .5em;
+    background-color: #FFD13A;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+    font-weight: 600;
+    margin: .5em auto .3em 0;
+    display: block;
+}
+.alert {
+    margin-bottom: 2em;
+    padding: 0px 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    text-align: center;
+    width: 52%;
+    border-radius: 4px;
+}
+@media only screen and (max-width: 800px) {
+    .reset-container {
+        padding: 40px 20px;
+   }
+}
+@media only screen and (max-width: 750px) {
+    .reset-container {
+        width: 60%;
+   }
+}
+@media only screen and (max-width: 650px) {
+    .reset-container {
+        width: 70%;
+   }
+}
+@media only screen and (max-width: 500px) {
+    .reset-container {
+        padding: 2em;
+   }
+}
+@media only screen and (max-width: 400px) {
+    .container input {
+        max-width: 300px;
+   }
+}
+@media only screen and (max-width: 300px) {
+    .container input {
+        max-width: 200px;
+   }
+}

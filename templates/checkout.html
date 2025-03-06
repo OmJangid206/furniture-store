@@ -1,0 +1,146 @@
+{% extends "index.html" %}
+{% load static %}
+{% load custom_filter %}
+{% load cart %}
+
+<!-- header -->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}" />
+<style>
+    .form-control{
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+</style>
+{% endblock head %}
+
+<!-- body -->
+{% block body %}
+<div class="main-container">
+    <form action="{% url 'placeorder' %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+
+            <div class="left-column">
+                <h6 class="carddetails">Cart Details</h6>
+                <hr>
+
+                <div class="checkoutform">
+                    <!--First name-->
+                    <div class="alignment">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" value="{{ request.user.first_name }}" name="fname"
+                            placeholder="Enter first name">
+                    </div>
+
+                    <!--Last name-->
+                    <div class="alignment">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" value="{{ request.user.last_name }}" name="lname" placeholder="Enter first name" required>
+                    </div>
+
+                    <!--Email -->
+                    <div class="alignment">
+                        <label>Email</label>
+                        <input type="email" class="form-control" value="{{ request.user.email }}" name="email" placeholder="Enter email" required>
+                    </div>
+
+                    <!--Phone-->
+                    <div class="alignment">
+                        <label >Phone</label>
+                        <input type="text" class="form-control" value="{{ userprofile.phone }}" pattern="[0-9]{10}" name="phone" placeholder="Enter phone number" title="Please enter only alphabets" required >
+                    </div>
+
+                    <!--Address-->
+                    <div class="alignment">
+                        <label >Address</label>
+                        <textarea class="form-control" name="address" required placeholder="Enter Address">{{ userprofile.address }}</textarea>
+                    </div>
+
+                    <!--City-->
+                    <div class="alignment">
+                        <label>City</label>
+                        <input type="text" class="form-control" value="{{ userprofile.city }}" name="city" placeholder="Enter city" required>
+                    </div>
+
+                    <!--State-->
+                    <div class="alignment">
+                        <label>State</label>
+                        <input type="text" class="form-control"  value="{{ userprofile.state }}" name="state" placeholder="Enter state" required>
+                    </div>
+
+                    <!--Country -->
+                    <div class="alignment">
+                        <label>Country</label>
+                        <input type="text" class="form-control" Required value="{{ userprofile.country }}" name="country" placeholder="Enter Country" required>
+                    </div>
+
+                    <!--Pincode no.-->
+                    <div class="alignment">
+                        <label>Pin Code</label>
+                        <input type="text" class="form-control" value="{{ userprofile.pincode }}" pattern="[0-9]{6}" name="pincode" placeholder="Enter pincode" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="right-column">
+                <div class="card-body">
+                    <h6 class="ordersummary">Order Summary</h6>
+                    <hr>
+                    {% if products %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Products</th>
+                                <th>Name</th>
+                                <th>QTY</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in products %}
+                            <tr>
+                                <td><img src="{{item.image.url}}" alt=""></td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item|cart_quantity:cart_items }}</td>
+                                <td>{{ item|total_price:cart_items|currency }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h6 class="Grandtotal">
+                        <span>Grand Total</span>
+                        <span id="totalPrice">{{ products|total_cart_price:cart_items|currency }}</span>
+                    </h6>
+
+
+                    <input type="hidden" value="COD" name="payment_mode">
+                    <h6>
+                        <button type="submit" class="btn">COD | Place order</button>
+                        <button type="button" class="paywithRazorpay">Pay with Razorpay</button>
+                    </h6>
+                    {% else %}
+                    <h4 class="empty">Your cart is empty</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}
+
+<!--Footer -->
+{% block footer %}
+{% endblock footer %}
+
+<!-- scripts -->
+{% block scripts%}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{% static '/js/checkout.js' %}"></script>
+{% endblock scripts%}

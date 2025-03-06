@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+{% load static %}
+
+<!--header-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock head %}
+
+<!--body -->
+{% block body %}
+
+<!--alert messgae -->
+{% if messages %}
+<div id="alert-container" class="alert-container">
+    <div class="alert" id="alert-message">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        <span class="close" id="custom-close">&times;</span>
+    </div>
+</div>
+{% endif %}
+
+<!--container -->
+<main class="login-container">
+    <div class="container">
+        <h2 class="text-center">Log in</h2>
+        <hr>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% if return_url %}
+            <input type="hidden" name="return_url" value="{{ return_url }}">
+            {% endif %}
+            <!--Name-->
+            <div class="user">
+                <label for="username">Email</label>
+                <input type="text" name="username" id="username" class="username-input" placeholder="Email" />
+            </div>
+
+            <!--Password-->
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="pass-input" placeholder="Password" />
+            </div>
+
+            <button class="login-button">Log in</button>
+            <p class="login-link" style="text-align: center;">
+                <a href="{% url 'signup' %}" style="text-decoration: underline;">Register</a>&nbsp;
+                <a href="{% url 'forgetpassword' %}" style="text-decoration: underline;">Forgot Password</a>
+            </p>
+        </form>
+    </div>
+</main>
+
+{% endblock body %}
+
+<!--Footer -->
+{% block footer %}
+{% endblock footer%}
+
+
+<!-- scripts -->
+{% block scripts%}
+<script src="{% static '/js/alert.js' %}"></script>
+{% endblock scripts%}

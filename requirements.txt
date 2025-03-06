@@ -1,0 +1,15 @@
+asgiref==3.7.2
+certifi==2024.2.2
+charset-normalizer==3.3.2
+distlib==0.3.8
+Django==5.0.1
+filelock==3.13.1
+idna==3.6
+pandas==2.1.4
+pillow==10.2.0
+platformdirs==3.11.0
+pytube==15.0.0
+requests==2.31.0
+sqlparse==0.4.4
+urllib3==2.2.0
+virtualenv==20.24.2

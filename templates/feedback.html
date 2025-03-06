@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+{% load static %}
+
+<!--header-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/feedback.css' %}" />
+{% endblock head %}
+
+<!--body-->
+{% block body%}
+<div class="feedback-container">
+  <h2 class="text-center">Feedback Form</h2>
+  </hr>
+
+  {% if message %}
+  <div class="alert" role="alert"> {{ message }} </div>
+  {% endif %}
+
+
+  <form action="/feedback" method="POST">
+    {% csrf_token %}
+
+    <!-- Name -->
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" class="form-control" name="name" required />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" class="form-control" name="email" required />
+    </div>
+
+    <!-- Feedback -->
+    <div class="form-group">
+      <label for="feedback">Feedback:</label>
+      <textarea id="textarea" class="form-control" name="desc" rows="4" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock body%}
+
+<!--footer -->
+{%block footer%}
+{%endblock footer%}

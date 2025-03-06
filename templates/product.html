@@ -1,0 +1,117 @@
+{% extends "index.html" %}
+{% load cart %}
+{% load static %}
+{% load custom_filter %}
+
+<!-- header -->
+{% block head %}
+<link rel="stylesheet" href="static/css/home.css">
+<style>
+    .add-btn {
+    background-color: #898a89; 
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    .add-btn a{
+        text-decoration: none;
+        font-weight: 700;
+        font-size: medium;
+        color: white;
+
+    }
+    .add-btn:hover {
+        background-color: #3e3d3d; 
+    }
+
+</style>
+{% endblock head %}
+
+<!-- body -->
+{% block body %}
+<div class="shop-container">
+    <div class="row">
+        <!-- itemadded by admin if login -->
+        <div class="cat-container">
+            <!-- Add new item if Admin login -->
+            {% if request.user.is_superuser %}
+                <button class="add-btn">
+                    <a href="http://127.0.0.1:8000/admin/furnitureapp/product/add/">Add product</a>
+                </button>
+
+                <button class="add-btn">
+                    <a href="http://127.0.0.1:8000/admin/furnitureapp/categorie/add/">Add Category </a>
+                </button>
+
+                <button class="add-btn">
+                    <a href="http://127.0.0.1:8000/admin/furnitureapp/service/add/">Add Service </a>
+                </button>
+            {% endif %}
+        </div>
+
+        <!-- Categories -->
+        <div class="cat-container">
+            <a href="product" class="listgroupitem">All</a>
+            {% for category in categories_model %}
+            <a href="product?category={{ category.id }}" class="listgroupitem">{{category.name}}</a>
+            {% endfor %}
+        </div>
+    
+        <!-- Products -->
+        <div class="product-container">
+            {% for product in products_model %}
+            <div class="card" d="{{ product.id }}"i >
+                <img src="{{ product.image.url }}" class="card-img-top" alt="Product Image">
+                <div class="card-info">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.price|currency }}</p>
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+
+                <div class="card-footer">
+                    {% if request.user.is_authenticated %}
+                    {% with request.user.cart_set.all as cart_items %}
+                    {% with product|is_in_cart:cart_items as in_cart %}
+                    {% if in_cart %}
+                    <form action="product#{{product.id}}" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{ product.id }}">
+                        <input hidden name="remove" value="True">
+                        <input type="submit" class="btnremove" value="-">
+                    </form>
+                    <div class="quantity">{{ product|cart_quantity:cart_items }}</div>
+
+                    <form action="product#{{product.id}}" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{ product.id }}">
+                        <input type="submit" class="btnadd" value="+">
+                    </form>
+
+                    {% else %}
+                    <form action="product#{{product.id}}" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{ product.id }}">
+                        <input type="submit" class="addtocart" value="Add To Cart">
+                    </form>
+
+                    {% endif %}
+                    {% endwith %}
+                    {% endwith %}
+                    {% else %}
+                    <form action="{% url 'login' %}" method="GET">
+                        <input type="submit" class="addtocart" value="Add To Cart">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}
+
+<!--Footer -->
+{% block footer %}
+{% endblock footer %}

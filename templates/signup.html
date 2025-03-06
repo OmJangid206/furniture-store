@@ -1,0 +1,97 @@
+{% extends "index.html" %}
+{% load static %}
+
+<!--header-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+{% endblock head %}
+
+<!--body -->
+{% block body %}
+<!--alert messgae -->
+{% if messages %}
+<div id="alert-container" class="alert-container">
+    <div class="alert" id="alert-message">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        <span class="close" id="custom-close">&times;</span>
+    </div>
+</div>
+{% endif %}
+<!--container -->
+<main class="signup-container">
+    <div class="container ">
+        <h2 class="text-center">Sign Up</h2>
+        <form action="/signup" , method="POST">
+            {% csrf_token %}
+
+            <div class="fname">
+                <label for="first_name">First Name</label>
+                <input type = "text" id="fname" name="fname" id="fname" required></input>
+
+            </div>
+            <div class="lname">
+                <label for="last_name">Last Name</label>
+                <input type = "text" id="lname" name="lname" id="lname" required></input>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <!-- {{form.email}}
+                {{form.email.errors}} -->
+                <input type = "text" id="email" name="email" id="email" required></input>
+            </div>
+
+            <div class="form-group">
+                <label for="password1">Password</label>
+                <!-- {{form.password1}}
+                {{form.password1.errors}} -->
+                <input type = "text" id="pass1" name="pass1" id="pass1" required></input>
+            </div>
+
+
+         
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <!-- {{ form.password2 }}
+                {% for error in form.password2.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %} -->
+                <input type = "text" id="pass2" name="pass2" id="pass2" required></input>
+            </div>
+
+         
+            <button class="signup-button">Sign up</button>
+            <p class=" text-center login-link" style="text-align: center;"  >Have an account?? <a href="{% url 'login' %}">Log in</a></p>
+    </div>
+    </div>
+</main>
+
+<script>
+    //var id_username = document.getElementById('id_username')
+    var id_fname = document.getElementById('fname')
+    var id_lname = document.getElementById('lname')
+    var id_email = document.getElementById('email')
+    var id_password1 = document.getElementById('pass1')
+    var id_password2 = document.getElementById('pass2')
+
+    //id_username.placeholder = 'Username';
+    id_fname.placeholder = 'First Name';
+    id_lname.placeholder = 'Last Name';
+    id_email.placeholder = 'Email';
+    id_password1.placeholder = 'Password';
+    id_password2.placeholder = 'Confirm password';
+
+</script>
+
+{% endblock body %}
+
+<!--Footer -->
+{%block footer%}
+{%endblock footer%}
+
+<!-- scripts -->
+{% block scripts%}
+<script src="{% static '/js/alert.js' %}"></script>
+{% endblock scripts%}

@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% load static %}
+
+<!--header-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/profile-.css' %}" />
+{% endblock head %}
+
+<!--body -->
+{% block body %}
+<!--alert messgae -->
+{% if messages %}
+<div id="alert-container" class="alert-container">
+    <div class="alert" id="alert-message">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        <span class="close" id="custom-close">&times;</span>
+    </div>
+</div>
+{% endif %}
+
+<!--container -->
+<main class="main-container">
+  <div class="container">
+    <div class="profile-photo-container">
+      <img src="{{user.profile.profile_img.url }}" alt="User Image" width="100px" srcset="" />
+    </div>
+
+    <div class="user-content-container">
+      <p class="username">{{user.profile.name}}</p>
+      <p class="user-title">{{user.profile.title}}</p>
+      <p class="user-desc">{{user.profile.desc}}</p>
+      <div class="profile-edit-link-container">
+        <a href="{% url 'updateprofile' %}">Edit</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock body %}
+
+<!--Footer -->
+{%block footer%}
+{%endblock footer%}
+
+<!-- scripts -->
+{% block scripts%}
+<script src="{% static '/js/alert.js' %}"></script>
+{% endblock scripts%}

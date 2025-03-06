@@ -1,0 +1,85 @@
+{%extends "index.html"%}
+{%load static%}
+{% load cart %}
+{% load custom_filter %}
+
+<!--header -->
+{% block head %}
+<link rel="stylesheet" href="static/css/home.css">
+{% endblock head %}
+
+<!--body -->
+{% block body%}
+
+<!-- carousel -->
+<div class="container-fluid">
+    <div class="carousel slide" data-ride="carousel">
+       <div class="carousel-inner">
+          {% for slider in sliders_model %}
+          <div class="carousel-item {% if forloop.first %} active {% endif%}"><img src="{{slider.image.url}}" alt="...">
+        </div>
+          {% endfor %}
+       </div>
+       <button class="carousel-control-prev" role="button" onclick="prevSlide()"><span
+             class="carousel-control-prev-icon" aria-hidden="false"></span><span class="sr-only">Previous</span></button>
+       <button class="carousel-control-next" role="button" onclick="nextSlide()"><span
+             class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </button>
+    </div>
+ </div>
+
+ <!-- Products -->
+ <div class="product-container">
+   {% for product in products_model %}
+   <div class="card" id="{{ product.id }}">
+       <img src="{{ product.image.url }}" class="card-img-top" alt="Product Image">
+       <div class="card-info">
+           <h5 class="card-title">{{ product.name }}</h5>
+           <p class="card-text">{{ product.price|currency }}</p>
+           <p class="card-text">{{ product.description }}</p>
+       </div>
+       
+       <div class="card-footer">
+           {% if request.user.is_authenticated %}
+           
+           {% with request.user.cart_set.all as cart_items %}
+           {% with product|is_in_cart:cart_items as in_cart %}
+           {% if in_cart %}
+           <form action="/#{{product.id}}" method="POST">
+               {% csrf_token %}
+               <input hidden type="text" name="product" value="{{ product.id }}">
+               <input hidden name="remove" value="True">
+               <input type="submit" class="btnremove" value="-">
+           </form>
+           <div class="text-center col ">{{ product|cart_quantity:cart_items }}</div>
+           <form action="/#{{product.id}}" method="POST">
+               {% csrf_token %}
+               <input hidden type="text" name="product" value="{{ product.id }}">
+               <input type="submit" class="btnadd" value="+">
+           </form>
+           {% else %}
+               <form action="/#{{product.id}}" method="POST">
+                   {% csrf_token %}
+                   <input hidden type="text" name="product" value="{{ product.id }}">
+                   <input type="submit" class="addtocart" value="Add To Cart">
+               </form>
+
+           {% endif %}
+           {% endwith %}
+           {% endwith %}
+           {% else %}
+           <form action="{% url 'login' %}" method="GET">
+               <input type="submit" class="addtocart" value="Add To Cart">
+           </form>
+           {% endif %}
+       </div>
+   </div>
+   {% endfor %}
+</div>
+{% endblock body%}
+
+<!-- scripts -->
+{% block scripts%}
+<script src="/static/js/carousel.js"></script>
+{% endblock scripts%}
+
+

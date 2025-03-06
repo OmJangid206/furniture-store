@@ -1,0 +1,107 @@
+{% extends "index.html" %}
+{% load static %}
+
+<!--header -->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/updateprofile.css' %}" />
+{% endblock head %}
+
+<!--body -->
+{% block body %}
+<!--alert messgae -->
+{% if messages %}
+<div id="alert-container" class="alert-container">
+    <div class="alert" id="alert-message">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        <span class="close" id="custom-close">&times;</span>
+    </div>
+</div>
+{% endif %}
+
+<main class="main-container">
+  <form class="container" action="" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <div class="profile-photo-container profile-photo-form-container">
+      <p class="profile-page-heading">Edit your profile</p>
+      <img src="{{user.profile.profile_img.url}}" alt="user-image" width="" srcset="" />
+      {{form.profile_img}}
+    </div>
+
+    <div class="user-content-container user-profile-form-container">
+      <ul>
+        <li class="name">
+          <label for="user-name">Your Name</label>
+          {{form.name}}
+        </li>
+        <li class="title">
+          <label for="user-title">Your title</label>
+          {{form.title}}
+        </li>
+        <li class="desc">
+          <label for="user-desc">Description</label>
+          {{form.desc}}
+        </li>
+        <li class="phone">
+          <label for="user-phone">Phone</label>
+          {{form.phone}}
+        </li>
+        <li class="address">
+          <label for="user-address">Address</label>
+          {{form.address}}
+        </li>
+        <li class="city">
+          <label for="user-city">City</label>
+          {{form.city}}
+        </li>
+        <li class="state">
+          <label for="user-state">State</label>
+          {{form.state}}
+        </li>
+        <li class="country">
+          <label for="user-country">Country</label>
+          {{form.country}}
+        </li>
+        <li class="pincode">
+          <label for="user-pincode">Pincode</label>
+          {{form.pincode}}
+        </li>
+      </ul>
+      <div class="hidden" style="display: none;">{{form.forget_password_token}}</div>
+      <button class="profile-save-button">Save</button>
+    </div>
+  </form>
+</main>
+
+<script>
+  var id_name = document.getElementById("id_name");
+  var id_title = document.getElementById("id_title");
+  var id_desc = document.getElementById("id_desc");
+
+  var id_phone = document.getElementById("id_phone");
+  var id_address = document.getElementById("id_address");
+  var id_city = document.getElementById("id_city");
+  var id_state = document.getElementById("id_state");
+  var id_country = document.getElementById("id_country");
+  var id_pincode = document.getElementById("id_pincode");
+  var id_desc = document.getElementById("id_desc");
+
+
+
+  id_name.placeholder = "Your Name";
+  id_title.placeholder = "Your Title";
+  id_desc.placeholder = "Description";
+</script>
+{% endblock body %}
+
+<!--Footer -->
+{%block footer%}
+{%endblock footer%}
+
+
+<!-- scripts -->
+{% block scripts%}
+<script src="{% static '/js/alert.js' %}"></script>
+{% endblock scripts%}

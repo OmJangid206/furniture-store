@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+{% load cart %}
+{% load custom_filter %}
+{% load static %}
+
+<!--header-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/order.css' %}" />
+{% endblock head %}
+
+<!--body-->
+{% block body %}
+<!--alert messgae -->
+{% if messages %}
+<div id="alert-container" class="alert-container">
+    <div class="alert" id="alert-message">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        <span class="close" id="custom-close">&times;</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="order-container">
+    <div class="row">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2 class="order-title">Your Order</h2>
+                    <a href="{% url 'feedback' %}" class="btn-feedback"><i class="fas fa-comments"></i> Feedback</a>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sno.</th>
+                                <th>Image</th>
+                                <th>Order Data</th>
+                                <th>Tracking Number</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><img src="{{ item.product_image_url }}" alt=""></td>
+                                <td>{{ item.created_at }}</td>
+                                <td>{{ item.tracking_no }}</td>
+                                <td>{{ item.total_price|currency }}</td>
+                                <td>
+                                    {% if item.status == 'Pending' %}
+                                    <span class="pending">{{ item.status }}</span>
+                                    {% elif item.status == 'Completed' %}
+                                    <span class="success">{{ item.status }}</span>
+                                    {% elif item.status == 'Cancelled' %}
+                                    <span class="Cancelled">{{ item.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'orderview' item.tracking_no %}" class="btn-orderview">View Orders</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+
+<!--Footer -->
+{% block footer %}
+{% endblock footer %}
+
+<!-- scripts -->
+{% block scripts%}
+<script src="{% static '/js/alert.js' %}"></script>
+{% endblock scripts%}

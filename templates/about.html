@@ -1,0 +1,45 @@
+{% extends "index.html"%}
+{% load static %}
+
+<!--header block-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}" />
+{% endblock head %}
+
+<!--Body block-->
+{% block body %}
+<div class="about-header">
+   <h2 class="about"> About Us </h2>
+</div><hr>
+<div class="about-container-block bigContainer">
+   <div class="about-container-block Container">
+      <img class="mainImg" src="{% static 'images/aboutimg.jpeg' %}">
+      <div class="allText aboveText">
+         <p class="text-blk subHeadingText">
+            Our Dedicated Team
+         </p>
+         <p class="text-blk description">
+            Our team is made up of skilled professionals who excel in managing a wide range of projects, from
+            complex undertakings to simpler tasks. Fueled by our unwavering commitment to excellence, we always go
+            the extra mile to ensure our clients are completely satisfied with our work.          </p>
+      </div>
+   </div>
+   <div class="about-container-block Container bottomContainer">
+      <img class="mainImg" src="{% static 'images/aboutimg1.jpeg' %}">
+      <div class="allText bottomText">
+         <p class="text-blk subHeadingText">
+            Your Trusted Partner
+         </p>
+         <p class="text-blk description">
+            At <em>Shanti Furniture</em>, we recognize that every project is unique, and your needs are our top
+            priority. We are dedicated to providing exceptional quality and service, ensuring that your vision
+            becomes a reality.          
+         </p>
+      </div>
+   </div>
+</div>
+{% endblock body %}
+
+<!--Footer Override  -->
+{% block footer %}
+{% endblock footer%}
