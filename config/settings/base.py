@@ -5,8 +5,7 @@ BASE_DIR = Path(__file__).resolve().parents[2]  # Moves up 2 levels
 
 # SECRET_KEY is used to provide cryptographic signing.
 # SECURITY WARNING: Keep the secret key used in production secret!
-secret_key = 'django-insecure-nv2nd2(wx#%0vl(&!7nic9h=pui_8hsr@lx3ag6_uubxp=))xd'
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', secret_key)
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # INSTALLED_APPS lists all the enabled Django apps in the project.
 INSTALLED_APPS = [
@@ -39,7 +38,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "app", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

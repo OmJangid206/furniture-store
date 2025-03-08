@@ -1,86 +1,70 @@
+"""
+views/contact_view.py
+
+This module defines the `ContactView` class, which handles contact form interactions 
+in the application.
+
+It provides functionalities to:
+- Render the contact form page.
+- Process and store user contact inquiries.
+
+Classes:
+    - ContactView: Handles GET and POST requests for the contact page.
+"""
+
 from django.shortcuts import render
-from app.models.contact_model import ContactModel, FeedbackModel, ServiceModel
+from django.http import HttpRequest, HttpResponse
 from django.views import View
-from app.utils import get_cart_count
-import random
+from app.models.contact_model import ContactModel
+from app.utils.common_utils import get_cart_count
 
 
-# Contact
-class contact(View):
-    def get(self, request):
-        cart_count = get_cart_count(request.user)
-        context = {"cart_count": cart_count}
+class ContactView(View):
+    """
+    Handles contact form interactions.
+
+    This view allows users to submit contact inquiries, which are stored in the database.
+    The contact page also displays the user's cart count.
+    """
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        """
+        Handles GET requests for the contact page.
+
+        Retrieves the user's cart count and renders the contact form.
+
+        Args:
+            request (HttpRequest): The HTTP request instance.
+
+        Returns:
+            HttpResponse: The rendered 'contact.html' page with cart count.
+        """
+        context = {"cart_count": get_cart_count(request.user)}
         return render(request, "contact.html", context)
 
-    def post(self, request):
-        name = request.POST.get("name")
-        phone_number = request.POST.get("phone")
-        email = request.POST.get("email")
-        description = request.POST.get("description")
-        contact_model = ContactModel(
-            name=name, phone_number=phone_number, email=email, description=description
+    def post(self, request: HttpRequest) -> HttpResponse:
+        """
+        Handles POST requests for contact form submission.
+
+        Extracts user input from the request, saves the contact details, 
+        and renders the page with a success message.
+
+        Args:
+            request (HttpRequest): The HTTP request instance containing contact form data.
+
+        Returns:
+            HttpResponse: The rendered 'contact.html' page with cart count and success message.
+        """
+        contact = ContactModel(
+            name=request.POST.get("name"),
+            phone_number=request.POST.get("phone"),
+            email=request.POST.get("email"),
+            description=request.POST.get("description"),
         )
-        contact_model.save()
+        contact.save()
 
-        cart_count = get_cart_count(request.user)
-
-        message = "Thank you for contacting us! We have received your message and will get back to you as soon as possible."
-        context = {"cart_count": cart_count, "message": message}
+        context = {
+            "cart_count": get_cart_count(request.user),
+            "message": "Thank you for contacting us! We have received your message and will get back to you as soon as possible.",
+        }
         return render(request, "contact.html", context)
-
-
-# Feedback
-class feedback(View):
-    def get(self, request):
-        cart_count = get_cart_count(request.user)
-        context = {"cart_count": cart_count}
-        return render(request, "feedback.html", context)
-
-    def post(self, request):
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        description = request.POST.get("desc")
-        feedback_model = FeedbackModel(name=name, email=email, feedback_description=description)
-        feedback_model.save()
-
-        # Get the cart count again
-        cart_count = get_cart_count(request.user)
-        message = "Your feedback has been saved."
-        context = {"cart_count": cart_count, "message": message}
-        return render(request, "feedback.html", context)
-
-
-# Genrate random color from RGB
-def generate_light_color():
-    r = random.randint(180, 255)
-    g = random.randint(180, 255)
-    b = random.randint(180, 255)
-    return "#{:02x}{:02x}{:02x}".format(r, g, b)
-
-
-# Services
-def service(request):
-    cart_count = get_cart_count(request.user)
-    services = ServiceModel.get_all_sevices()
-    service_data = []
-    for service in services:
-        service_name_hash = abs(hash(service.service_name)) % 16777215
-        text_color = generate_light_color()
-        background_color = generate_light_color()
-        service_data.append(
-            {
-                "service": service,
-                "service_name_hash": service_name_hash,
-                "text_color": text_color,
-                "background_color": background_color,
-            }
-        )
-        context = {"services": service_data, "cart_count": cart_count}
-    return render(request, "service.html", context)
-
-
-# About
-def about(request):
-    cart_count = get_cart_count(request.user)
-    context = {"cart_count": cart_count}
-    return render(request, "about.html", context)

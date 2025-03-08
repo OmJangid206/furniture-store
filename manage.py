@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 Django Management Script
 
@@ -21,11 +19,29 @@ Environment:
 Requirements:
     - Django must be installed and available in the Python environment.
     - The script should be executed within an activated virtual environment.
+
+Functionality:
+    - `execute_from_command_line(sys.argv)`: This function takes command-line 
+      arguments and runs the corresponding Django management command.
+      It is responsible for handling commands like `runserver`, `migrate`, 
+      `createsuperuser`, and more.
+
+    Example:
+        If the script is run with:
+        ```bash
+        python manage.py runserver 8080
+        ```
+        Then, internally, the function is called as:
+        ```python
+        execute_from_command_line(["manage.py", "runserver", "8080"])
+        ```
+        This starts the Django development server on port 8080.
 """
 
 import os
 import sys
-
+import traceback
+from django.core.management import execute_from_command_line
 
 def main():
     """
@@ -40,18 +56,17 @@ def main():
         ImportError: If Django is not installed or cannot be found in 
         the Python environment.
     """
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-    
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.development")
+
     try:
-        from django.core.management import execute_from_command_line
+        execute_from_command_line(sys.argv)
     except ImportError as exc:
-        raise ImportError(
+        sys.stderr.write(
             "Couldn't import Django. Ensure it is installed and available "
             "on your PYTHONPATH. Did you forget to activate the virtual environment?"
-        ) from exc
-
-    execute_from_command_line(sys.argv)
-
+        )
+        sys.stderr.write(traceback.format_exc())
+        sys.exit()
 
 if __name__ == "__main__":
     main()
