@@ -56,7 +56,7 @@ def main():
         ImportError: If Django is not installed or cannot be found in 
         the Python environment.
     """
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.development")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 
     try:
         execute_from_command_line(sys.argv)

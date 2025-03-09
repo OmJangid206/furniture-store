@@ -1,17 +1,24 @@
+import os
 from .base import *
+from dotenv import load_dotenv
 
-DEBUG = False
-ALLOWED_HOSTS = [".vercel.app"]
+load_dotenv()
+
+DEBUG = True
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app"]
 
 # database settings (PostgreSQL)
-# DATABASES['default'] = {
-#     "ENGINE": "django.db.backends.postgresql",
-#     "NAME": os.environ["DB_NAME"],
-#     "USER": os.environ["DB_USER"],
-#     "PASSWORD": os.environ["DB_PASSWORD"],
-#     "HOST": os.environ["DB_HOST"],
-#     "PORT": os.environ["DB_PORT"],
-# }
+DATABASES['default'] = {
+    "ENGINE": "django.db.backends.postgresql",
+    "NAME": os.environ["DB_NAME"],
+    "USER": os.environ["DB_USER"],
+    "PASSWORD": os.environ["DB_PASSWORD"],
+    "HOST": os.environ["DB_HOST"],
+    "PORT": os.getenv("DB_PORT", 5432),
+    'OPTIONS': {
+            'sslmode': 'require',
+    },
+}
 
 # Email settings
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
