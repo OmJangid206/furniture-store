@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 from django.views import View
 from django.http import HttpRequest, HttpResponse
 from app.models.profile_model import ProfileModel
-# from furnitureapp.helpers import send_forget_password_mail
+from app.utils.user_utils import send_forget_password_mail
 
 
 class ChangePasswordView(View):
@@ -128,7 +128,9 @@ class ForgetPasswordView(View):
         profile_obj, created = ProfileModel.objects.get_or_create(user=user)
         profile_obj.forget_password_token = token
         profile_obj.save()
-        # send_forget_password_mail(user.email, token)  # Uncomment to send email
+
+        # Call the email function
+        send_forget_password_mail(user.email, token)
 
         messages.success(request, "An email is sent")
         return redirect("/forget-password/")

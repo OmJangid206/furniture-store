@@ -75,7 +75,7 @@
                
                 {% if user.is_authenticated %}
                 <li class="nav-item {% if request.path == '/cart' %}active{% endif %}"> <a class="nav-link" href="/cart"> <i class="fa-solid fa-cart-shopping"></i> Cart <span class="badge small-badge-info">{{ cart_count }}</span></a></li>
-                <li class="nav-item {% if request.path == '/orders' %}active{% endif %}"><a class="nav-link" href="/orders">Orders</a></li>
+                <li class="nav-item {% if request.path == '/order' %}active{% endif %}"><a class="nav-link" href="/order">Order</a></li>
                 <li class="nav-item {% if request.path == '/logout' %}active{% endif %}"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
                 <li class="nav-item {% if request.path == '/profile' %}active{% endif %}"><a class="nav-link" href="{% url 'profile'%}"><img src="{{ user.profile.profile_img.url }}" alt="profile-icon" width="30px" height="30px" style="border-radius: 50%; object-fit: cover;"></a></li>
 

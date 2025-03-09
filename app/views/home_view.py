@@ -44,9 +44,13 @@ class HomeView(View):
         Returns:
             HttpResponse: Rendered homepage with the provided context.
         """
+        # user_cart = CartModel.objects.filter(user=request.user)
+        # print(f"Cart for user {request.user}: {list(user_cart)}")  # Debug print
+
         context = { 
             "sliders": SliderModel.get_all_slider(), 
             "products": ProductModel.get_all_products(),
+            # "cart_items": user_cart,  # ✅ Explicitly passing cart items to template
             "cart_count": get_cart_count(request.user) 
         }
         return render(request, "home.html", context)
@@ -89,14 +93,20 @@ class HomeView(View):
             None
         """
         product = ProductModel.objects.get(pk=product_id)
-        cart_item = CartModel.objects.get_or_create(user=user, product=product)
-
+        cart_item, created = CartModel.objects.get_or_create(user=user, product=product)
+        
+        print(f"Before Update - Product {cart_item.product.id}, Quantity: {cart_item.product_qty}, Created: {created}")
+    
         if remove_item:
             if cart_item.product_qty <= 1:
+                print(f"Removing product {product_id} from cart")
                 cart_item.delete()
             else:
                 cart_item.product_qty -= 1
+                print(f"Updated Quantity - Product {cart_item.product.id}, Quantity: {cart_item.product_qty}")
                 cart_item.save()
         else:
             cart_item.product_qty += 1
+            print(f"Updated Quantity - Product {cart_item.product.id}, Quantity: {cart_item.product_qty}")
             cart_item.save()
+ 

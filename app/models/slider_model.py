@@ -31,6 +31,10 @@ class SliderModel(models.Model):
     s_name = models.CharField(max_length=50, null=True)
     image = models.ImageField(upload_to="slider/")
 
+    class Meta:
+        # verbose_name = "Slider"
+        verbose_name_plural = "Sliders"
+
     @staticmethod
     def get_all_slider():
         """

@@ -93,7 +93,7 @@ class ProductView(View):
             None
         """
         product = ProductModel.objects.get(pk=product_id)
-        cart_item = CartModel.objects.get_or_create(user=user, product=product)
+        cart_item, _ = CartModel.objects.get_or_create(user=user, product=product)
 
         if remove_item:
             if cart_item.product_qty <= 1:

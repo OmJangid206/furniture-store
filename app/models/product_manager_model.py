@@ -40,4 +40,4 @@ class ProductManagerModel:
         query = request.GET.get("q") # Extract search query from request
         products = ProductModel.objects.filter(name__icontains=query) if query else []
         context = {"products": products, "query": query}
-        return render(request, "search_result.html", context)
+        return render(request, "search-result.html", context)

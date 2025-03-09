@@ -37,7 +37,9 @@ class CartView(View):
         Returns:
             HttpResponse: The rendered 'cart.html' template with cart details.
         """
+        cart_items = CartModel.objects.filter(user=request.user)
         context = {
+            "products": [item.product for item in cart_items],
             "cart_items": self._get_cart_items(request),
             "cart_count": get_cart_count(request.user),
         }

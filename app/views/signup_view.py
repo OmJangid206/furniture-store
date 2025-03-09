@@ -112,7 +112,7 @@ class SignUpView(View):
         current_site = get_current_site(request)
         email_subject = "Confirm your email address"
         message = render_to_string(
-            "emailconfirmation.html",
+            "email-confirmation.html",
             {
                 "name": user.first_name,
                 "domain": current_site.domain,

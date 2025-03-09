@@ -30,6 +30,9 @@ class ContactModel(models.Model):
     email = models.EmailField()
     description = models.TextField()
 
+    class Meta:
+        verbose_name_plural = "Contacts"
+
     def __str__(self):
         """
         Returns a string representation of the contact entry.

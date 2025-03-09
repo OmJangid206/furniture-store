@@ -35,6 +35,9 @@ class ProductModel(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to="products/")
 
+    class Meta:
+        verbose_name_plural = "Products" 
+
     @staticmethod
     def get_all_products_by_id(ids):
         """

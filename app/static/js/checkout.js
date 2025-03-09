@@ -66,7 +66,7 @@ $(document).ready(function () {
                                 success: function (responsec) {
                                     // Display success message and redirect.
                                     swal("Congratulations!", responsec.status, "success").then((value)=>{
-                                        window.location.href = '/orders'
+                                        window.location.href = '/order'
                                     });
                                 }
                             });

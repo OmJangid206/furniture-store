@@ -33,7 +33,7 @@ def is_in_cart(product, cart):
         bool: True if the product is in the cart, False otherwise.
     """
     return any(cart_item.product.id == product.id for cart_item in cart)
-
+ 
 @register.filter(name="cart_quantity")
 def cart_quantity(product, cart):
     """

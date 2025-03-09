@@ -45,7 +45,7 @@ class ProfileModel(models.Model):
         __str__(): Returns a string representation of the profile in the format: "{username}'s profile".
     """
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     name = models.CharField(max_length=100, default="Krishna User (Default)")
     title = models.CharField(max_length=100, default="This is the (Default)")
     
@@ -68,6 +68,9 @@ class ProfileModel(models.Model):
     # Timestamp for when the profile was created
     created_at = models.DateTimeField(default=timezone.now, editable=False)
 
+    class Meta:
+        verbose_name_plural = "Profiles" 
+        
     def __str__(self):
         """
         Returns a string representation of the profile.

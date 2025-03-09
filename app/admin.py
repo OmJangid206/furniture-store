@@ -1,5 +1,5 @@
 """
-admin/admin.py
+admin.py
 
 Django Admin Model Registrations
 
@@ -25,16 +25,16 @@ Usage:
 from django.contrib import admin
 
 # Import models from the current app
-from ..models.profile_model import ProfileModel
-from ..models.product_model import ProductModel
-from ..models.category_model import CategoryModel
-from ..models.slider_model import SliderModel
-from ..models.contact_model import ContactModel
-from ..models.feedback_model import FeedbackModel
-from ..models.service_model import ServiceModel
-from ..models.order_model import OrderModel
-from ..models.order_details_model import OrderDetailsModel
-from ..models.cart_model import CartModel
+from .models.profile_model import ProfileModel
+from .models.product_model import ProductModel
+from .models.category_model import CategoryModel
+from .models.slider_model import SliderModel
+from .models.contact_model import ContactModel
+from .models.feedback_model import FeedbackModel
+from .models.service_model import ServiceModel
+from .models.order_model import OrderModel
+from .models.order_details_model import OrderDetailsModel
+from .models.cart_model import CartModel
 
 # Register models to make them available in the Django Admin Panel
 admin.site.register(ProfileModel)

@@ -28,6 +28,9 @@ class FeedbackModel(models.Model):
     email = models.EmailField()
     feedback_description = models.TextField()
 
+    class Meta:
+        verbose_name_plural = "Feedbacks"  
+
     def __str__(self):
         """
         Returns a string representation of the feedback entry.

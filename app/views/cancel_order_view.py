@@ -61,7 +61,7 @@ class CancelOrderView(LoginRequiredMixin, View):
             order = OrderModel.objects.get(id=order_id, user=request.user)
         except OrderModel.DoesNotExist:
             messages.error(request, "Order does not exist.")
-            return redirect("order_view")
+            return redirect("order")
 
         # Check order status and handle accordingly
         if order.status == "Completed":
@@ -72,7 +72,7 @@ class CancelOrderView(LoginRequiredMixin, View):
             # Update order and order details status to "Cancelled"
             order.status = "Cancelled"
             order.save()
-            OrderDetailsModel.objects.filter(order=order).update(status="Cancelled")
+            # OrderDetailsModel.objects.filter(order=order).update(status="Cancelled")
             messages.success(request, "Order has been successfully canceled.")
 
-        return redirect("order_view")
+        return redirect("order")

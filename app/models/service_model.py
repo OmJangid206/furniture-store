@@ -24,6 +24,9 @@ class ServiceModel(models.Model):
     """
     service_name = models.CharField(max_length=50)
 
+    class Meta:
+        verbose_name_plural = "Services" 
+
     @staticmethod
     def get_all_sevices():
         """

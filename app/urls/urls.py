@@ -12,6 +12,7 @@ from ..views.logout_view import LogoutView
 from ..views.profile_view import ProfileView
 from ..views.update_profile_view import UpdateProfileView
 from ..views.password_view import ChangePasswordView, ForgetPasswordView
+from ..views.activate_account_view import ActivateAccountView
 from ..views.order_view import OrderView
 from ..views.order_details_view import OrderDetailsView
 from ..views.cancel_order_view import CancelOrderView
@@ -32,12 +33,12 @@ urlpatterns = [
     path("login", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("profile/", ProfileView.as_view(), name="profile"),
-    path("updateprofile/", UpdateProfileView.as_view(), name="updateprofile"),
-    # path('activate/<uidb64>/<token>/',activate,name='activate'),
+    path("update-profile/", UpdateProfileView.as_view(), name="updateprofile"),
+    path('activate/<uidb64>/<token>/',ActivateAccountView.as_view(),name='activate'),
     path("forget-password/", ForgetPasswordView.as_view(), name="forgetpassword"),
     path("change-password/<token>/", ChangePasswordView.as_view(), name="changepassword"),
     path("order", OrderView.as_view(), name="order"),
-    path("view-order/<str:t_no>", OrderDetailsView.as_view(), name="orderview"),
+    path("view-order/<str:tracking_number>", OrderDetailsView.as_view(), name="order_view"),
     path('cancel_order/<int:order_id>/', CancelOrderView.as_view(), name='cancel_order'),
     path('search/', ProductManagerModel.search_view, name='search_view'),
     path("checkout", auth_middleware(CheckoutView.as_view()), name="checkout"),

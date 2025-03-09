@@ -84,7 +84,7 @@ USE_TZ = True
 # STATIC_URL defines the URL path where static files (like CSS, JavaScript, and images) will be served from.
 # STATICFILES_DIRS defines the locations of the static files on the file system.
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "app/static")]
 
 # Media files (uploads)
 # MEDIA_URL defines the URL path where media files (like images, documents, etc.) will be served from.

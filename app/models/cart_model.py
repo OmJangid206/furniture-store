@@ -25,12 +25,15 @@ class CartModel(models.Model):
         product_qty (int): The quantity of the product in the cart.
         created_at (datetime): The timestamp when the cart item was added.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cart_items")
     product = models.ForeignKey(
         ProductModel, on_delete=models.CASCADE, default="", null=True, blank=True
     )
     product_qty = models.IntegerField(default=0)
     created_at = models.DateTimeField(default=timezone.now, editable=False)
+
+    class Meta:
+        verbose_name_plural = "Carts"
 
     def __str__(self):
         """

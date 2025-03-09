@@ -15,7 +15,7 @@
 <div class="container-fluid">
     <div class="carousel slide" data-ride="carousel">
        <div class="carousel-inner">
-          {% for slider in sliders_model %}
+          {% for slider in sliders %}
           <div class="carousel-item {% if forloop.first %} active {% endif%}"><img src="{{slider.image.url}}" alt="...">
         </div>
           {% endfor %}
@@ -29,7 +29,7 @@
 
  <!-- Products -->
  <div class="product-container">
-   {% for product in products_model %}
+   {% for product in products %}
    <div class="card" id="{{ product.id }}">
        <img src="{{ product.image.url }}" class="card-img-top" alt="Product Image">
        <div class="card-info">
@@ -40,32 +40,28 @@
        
        <div class="card-footer">
            {% if request.user.is_authenticated %}
-           
-           {% with request.user.cart_set.all as cart_items %}
-           {% with product|is_in_cart:cart_items as in_cart %}
-           {% if in_cart %}
-           <form action="/#{{product.id}}" method="POST">
-               {% csrf_token %}
-               <input hidden type="text" name="product" value="{{ product.id }}">
-               <input hidden name="remove" value="True">
-               <input type="submit" class="btnremove" value="-">
-           </form>
-           <div class="text-center col ">{{ product|cart_quantity:cart_items }}</div>
-           <form action="/#{{product.id}}" method="POST">
-               {% csrf_token %}
-               <input hidden type="text" name="product" value="{{ product.id }}">
-               <input type="submit" class="btnadd" value="+">
-           </form>
-           {% else %}
-               <form action="/#{{product.id}}" method="POST">
-                   {% csrf_token %}
-                   <input hidden type="text" name="product" value="{{ product.id }}">
-                   <input type="submit" class="addtocart" value="Add To Cart">
-               </form>
-
-           {% endif %}
-           {% endwith %}
-           {% endwith %}
+                {% with request.user.cart_items.all as cart_items %}
+                    {% if product|is_in_cart:cart_items %}
+                    <form action="/#{{product.id}}" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{ product.id }}">
+                        <input hidden name="remove" value="True">
+                        <input type="submit" class="btnremove" value="-">
+                    </form>
+                    <div class="text-center col ">{{ product|cart_quantity:cart_items }}</div>
+                    <form action="/#{{product.id}}" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{ product.id }}">
+                        <input type="submit" class="btnadd" value="+">
+                    </form>
+                    {% else %}
+                    <form action="/#{{product.id}}" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value="{{ product.id }}">
+                        <input type="submit" class="addtocart" value="Add To Cart">
+                    </form>
+                    {% endif %}
+                {% endwith %}
            {% else %}
            <form action="{% url 'login' %}" method="GET">
                <input type="submit" class="addtocart" value="Add To Cart">

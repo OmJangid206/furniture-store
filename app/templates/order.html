@@ -48,7 +48,7 @@
                                 <td>{{ forloop.counter }}</td>
                                 <td><img src="{{ item.product_image_url }}" alt=""></td>
                                 <td>{{ item.created_at }}</td>
-                                <td>{{ item.tracking_no }}</td>
+                                <td>{{ item.tracking_number }}</td>
                                 <td>{{ item.total_price|currency }}</td>
                                 <td>
                                     {% if item.status == 'Pending' %}
@@ -60,7 +60,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="{% url 'orderview' item.tracking_no %}" class="btn-orderview">View Orders</a>
+                                    <a href="{% url 'order_view' item.tracking_number %}" class="btn-orderview">View Orders</a>
                                 </td>
                             </tr>
                             {% endfor %}

@@ -37,6 +37,9 @@ class OrderDetailsModel(models.Model):
     quantity = models.IntegerField(null=False, default=0)
     product_image_url = models.URLField(null=True)
 
+    class Meta:
+        verbose_name_plural = "Order Details" 
+
     def get_product_image_url(self):
         """
         Retrieves the URL of the product image for this order item.
@@ -57,4 +60,4 @@ class OrderDetailsModel(models.Model):
         Returns:
             str: A string representation of the order item.
         """
-        return f"{self.order.id} - {self.order.tracking_no}"
+        return f"{self.order.id} - {self.order.tracking_number}"

@@ -15,7 +15,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
 from django.views import View
-from app.forms.forms import ProfileForm
+from app.forms.user_form import ProfileForm
 from app.models.profile_model import ProfileModel
 from app.utils.common_utils import get_cart_count
 
@@ -46,11 +46,11 @@ class UpdateProfileView(View):
             Rendered profile update page with the profile form.
         """
         # Retrieve or create a profile for the user
-        profile = ProfileModel.objects.get_or_create(user=request.user)
+        profile, _ = ProfileModel.objects.get_or_create(user=request.user)
         form = ProfileForm(instance=profile)
         cart_count = get_cart_count(request.user)
         context = {"form": form, "cart_count": cart_count}
-        return render(request, "updateprofile.html", context)
+        return render(request, "update-profile.html", context)
 
     def post(self, request: HttpRequest) -> HttpResponse:
         """
@@ -63,7 +63,7 @@ class UpdateProfileView(View):
             Redirects to the profile page upon successful form submission.
             If the form is invalid, reloads the update profile page with errors.
         """
-        profile = ProfileModel.objects.get_or_create(user=request.user)
+        profile, _ = ProfileModel.objects.get_or_create(user=request.user)
         form = ProfileForm(request.POST, request.FILES, instance=profile)
 
         if form.is_valid():
@@ -72,4 +72,4 @@ class UpdateProfileView(View):
             return redirect("profile")
         else:
             messages.error(request, "Failed to update profile. Please check the form.")
-            return render(request, "updateprofile.html", {"form": form, "cart_count": get_cart_count(request.user)})
+            return render(request, "update-profile.html", {"form": form, "cart_count": get_cart_count(request.user)})

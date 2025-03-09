@@ -137,7 +137,7 @@ class PlaceOrderView(LoginRequiredMixin, View):
         if request.POST.get("payment_mode") == "Paid by Razorpay":
             return JsonResponse({"status": "Your order has been placed successfully"})
 
-        return redirect("orders")
+        return redirect("order")
 
 
 class RazorpayCheckView(LoginRequiredMixin, View):
@@ -162,5 +162,5 @@ class RazorpayCheckView(LoginRequiredMixin, View):
         """
         cart_items = CartModel.objects.filter(user=request.user)
         total_price = total_cart_price([item.product for item in cart_items], cart_items)
-
+        print(f"total_price: {total_price}")
         return JsonResponse({"total_price": total_price})

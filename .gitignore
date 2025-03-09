@@ -173,3 +173,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# Ignore media files (since you're using Cloudinary)
+media/
+
+.DS_Store

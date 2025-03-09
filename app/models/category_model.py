@@ -22,7 +22,6 @@ class CategoryModel(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"  
-        # Custom plural name in admin
 
     @staticmethod
     def get_all_categories():

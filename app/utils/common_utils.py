@@ -67,3 +67,4 @@ class TokenGenerator(PasswordResetTokenGenerator):
             str: The hash value.
         """
         return text_type(user.pk) + text_type(timestamp)
+ 

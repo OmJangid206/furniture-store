@@ -48,7 +48,7 @@ class LoginView(View):
             request (HttpRequest): The HTTP request instance.
 
         Returns:
-            HttpResponse: Redirects to `return_url` (if exists), dashboard, or login page on failure.
+            HttpResponse: Redirects to `return_url` (if exists), , or login page on failure.
         """
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -58,7 +58,7 @@ class LoginView(View):
         if user:
             login(request, user)
             return_url = request.session.pop("return_url", None)
-            return redirect(return_url or "dashboard")  # Redirect to dashboard or homepage
+            return redirect(return_url or "/")  # Redirect to homepage
         else:
             messages.error(request, "Invalid username or password")
             return redirect("login")

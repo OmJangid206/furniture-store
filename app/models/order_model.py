@@ -44,7 +44,7 @@ class OrderModel(models.Model):
         payment_id (CharField): The unique identifier for the payment.
         status (CharField): The current order status (Pending, Out For Shipping, Completed, Cancelled).
         message (TextField): A custom message associated with the order.
-        tracking_no (CharField): The tracking number of the order.
+        tracking_number (CharField): The tracking number of the order.
         created_at (DateTimeField): The timestamp when the order was created.
         updated_at (DateTimeField): The timestamp when the order was last updated.
     """
@@ -71,9 +71,12 @@ class OrderModel(models.Model):
     )
     status = models.CharField(max_length=150, choices=orderstatuses, default="Pending")
     message = models.TextField(null=True)
-    tracking_no = models.CharField(max_length=150, null=True)
+    tracking_number = models.CharField(max_length=150, null=True)
     created_at = models.DateTimeField(default=timezone.now, editable=False)
     updated_at = models.DateTimeField(default=timezone.now, editable=False)
+
+    class Meta:
+        verbose_name_plural = "Orders" 
 
     def __str__(self):
         """
@@ -84,4 +87,4 @@ class OrderModel(models.Model):
         Returns:
             str: A string representation of the order.
         """
-        return f"{self.id} - {self.tracking_no}"
+        return f"{self.id} - {self.tracking_number}"
