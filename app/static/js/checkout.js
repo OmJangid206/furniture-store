@@ -36,7 +36,7 @@ $(document).ready(function () {
 
                     // Configure Razorpay options.
                     var options = {
-                        "key": process.env.RAZER_PAY_KEY, // Replace with your Razorpay key
+                        "key": response.razorpay_key,
                         "amount": 1* 100, // Replace with response.total_price * 100 for actual amount
                         "currency": "INR",
                         "name": "Shanti Furniture",

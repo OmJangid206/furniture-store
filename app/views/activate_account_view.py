@@ -36,7 +36,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.shortcuts import render
 from django.views import View
 from app.utils.common_utils import get_cart_count
-from app.utils.common_utils import TokenGenerator
+from app.utils.user_utils import TokenGenerator
 
 
 class ActivateAccountView(View):

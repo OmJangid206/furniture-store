@@ -178,4 +178,24 @@ cython_debug/
 # Ignore media files (since you're using Cloudinary)
 media/
 
+# macOS system files
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS resource forks
+__MACOSX/
+
+# macOS Finder settings
+.DS_Store?
+._*
+
+# macOS Spotlight files
+.metadata_never_index
+.spotlight-V100/
+
+# macOS Trash files
+.Trashes/
+
+# macOS temporary files
+.fseventsd/

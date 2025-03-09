@@ -17,6 +17,7 @@ Classes:
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 class ProfileModel(models.Model):
@@ -46,15 +47,16 @@ class ProfileModel(models.Model):
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    name = models.CharField(max_length=100, default="Krishna User (Default)")
-    title = models.CharField(max_length=100, default="This is the (Default)")
+    name = models.CharField(max_length=100, default="Unknown (default)")
+    title = models.CharField(max_length=100, default="Untitled (default)")
     
     # Default description text
     desc_text = "Hey there is default text description"
     desc = models.CharField(max_length=200, null=True, default=desc_text)
     
-    profile_img = models.ImageField(default="default.jpg", upload_to="profile/")
-
+    # profile_img = models.ImageField(default="default.jpg", upload_to="profile/")
+    # Upload profile images to Cloudinary instead of 'media/profile/'
+    profile_img = CloudinaryField('profile', default="profile/default.jpg")
     phone = models.CharField(max_length=150, default="", null=True)
     address = models.TextField(null=False, default="")
     city = models.CharField(max_length=150, default="", null=True)
@@ -63,7 +65,7 @@ class ProfileModel(models.Model):
     pincode = models.CharField(max_length=150, default="", null=True)
     
     # For password recovery
-    forget_password_token = models.CharField(max_length=100, default="token123", null=True)
+    forget_password_token = models.CharField(max_length=100, null=True)
     
     # Timestamp for when the profile was created
     created_at = models.DateTimeField(default=timezone.now, editable=False)

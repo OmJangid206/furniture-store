@@ -14,3 +14,6 @@ sqlparse==0.4.4
 urllib3==2.2.0
 virtualenv==20.24.2
 pylint==3.3.4
+cloudinary==1.42.2
+django-cloudinary-storage==0.3.0
+python-dotenv==1.0.1

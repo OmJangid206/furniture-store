@@ -65,7 +65,7 @@ class UpdateProfileView(View):
         """
         profile, _ = ProfileModel.objects.get_or_create(user=request.user)
         form = ProfileForm(request.POST, request.FILES, instance=profile)
-
+        print(f"form: {form}")
         if form.is_valid():
             form.save()
             messages.success(request, "Your profile is updated.")

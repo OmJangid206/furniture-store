@@ -350,9 +350,9 @@
 }
 
 .carousel-control-prev-icon {
-    background-image: url("/media/left-arrow.png");
+    background-image: url("../images/left-arrow.png");
 }
 
 .carousel-control-next-icon {
-    background-image: url("/media/right-arrow.png");
+    background-image: url("../images/right-arrow.png");
 }

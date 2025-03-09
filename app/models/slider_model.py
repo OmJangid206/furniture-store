@@ -11,6 +11,7 @@ Classes:
     SliderModel (models.Model): A model for storing slider information, including the name of the slider and the image associated with it.
 """
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class SliderModel(models.Model):
@@ -29,7 +30,7 @@ class SliderModel(models.Model):
         __str__(): Returns the string representation of the slider object as the slider name.
     """
     s_name = models.CharField(max_length=50, null=True)
-    image = models.ImageField(upload_to="slider/")
+    image = CloudinaryField('slider')
 
     class Meta:
         # verbose_name = "Slider"

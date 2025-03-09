@@ -23,7 +23,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from config import settings
-from app.utils.common_utils import TokenGenerator
+from app.utils.user_utils import TokenGenerator
 
 
 class SignUpView(View):

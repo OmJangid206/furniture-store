@@ -10,7 +10,7 @@ Classes:
     - PlaceOrderView: Processes order placement by creating an order and clearing the cart.
     - RazorpayCheckView: Computes the total cart price for Razorpay payment.
 """
-
+import os
 import random
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpRequest, HttpResponse
@@ -25,7 +25,10 @@ from app.models.order_details_model import OrderDetailsModel
 from app.models.cart_model import CartModel
 from app.utils.common_utils import get_cart_count
 from app.templatetags.cart import total_cart_price
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 class CheckoutView(LoginRequiredMixin, View):
     """
@@ -113,7 +116,7 @@ class PlaceOrderView(LoginRequiredMixin, View):
 
         # Generate unique tracking number
         while True:
-            tracking_number = f"krishna{random.randint(1111111, 9999999)}"
+            tracking_number = f"1Z{random.randint(1111111, 9999999)}"
             if not OrderModel.objects.filter(tracking_number=tracking_number).exists():
                 new_order.tracking_number = tracking_number
                 break
@@ -160,7 +163,8 @@ class RazorpayCheckView(LoginRequiredMixin, View):
         Returns:
             JsonResponse: A JSON response containing the total price of cart items.
         """
+        razorpay_key = os.environ["RAZORPAY_KEY"]
+        print(f"razorpay_key: {razorpay_key}")
         cart_items = CartModel.objects.filter(user=request.user)
         total_price = total_cart_price([item.product for item in cart_items], cart_items)
-        print(f"total_price: {total_price}")
-        return JsonResponse({"total_price": total_price})
+        return JsonResponse({"total_price": total_price, "razorpay_key": razorpay_key})

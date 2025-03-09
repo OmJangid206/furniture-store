@@ -14,7 +14,7 @@ Classes:
 from django.db import models
 from django.db.models import Q
 from .category_model import CategoryModel
-
+from cloudinary.models import CloudinaryField
 
 class ProductModel(models.Model):
     """
@@ -33,7 +33,7 @@ class ProductModel(models.Model):
         CategoryModel, on_delete=models.CASCADE, default="", null=True, blank=True
     )
     description = models.TextField()
-    image = models.ImageField(upload_to="products/")
+    image = CloudinaryField('products')
 
     class Meta:
         verbose_name_plural = "Products" 

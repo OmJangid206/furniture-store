@@ -71,7 +71,7 @@ class OrderModel(models.Model):
     )
     status = models.CharField(max_length=150, choices=orderstatuses, default="Pending")
     message = models.TextField(null=True)
-    tracking_number = models.CharField(max_length=150, null=True)
+    tracking_number = models.CharField(max_length=150, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now, editable=False)
     updated_at = models.DateTimeField(default=timezone.now, editable=False)
 
