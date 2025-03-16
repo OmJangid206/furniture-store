@@ -25,10 +25,10 @@ from app.models.order_details_model import OrderDetailsModel
 from app.models.cart_model import CartModel
 from app.utils.common_utils import get_cart_count
 from app.templatetags.cart import total_cart_price
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# # Load environment variables from .env file
+# load_dotenv()
 
 class CheckoutView(LoginRequiredMixin, View):
     """

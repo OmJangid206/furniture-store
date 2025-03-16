@@ -3,9 +3,9 @@ from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 BASE_DIR = Path(__file__).resolve().parents[2]  # Moves up 2 levels
 
 # SECRET_KEY is used to provide cryptographic signing.
