@@ -1,0 +1,109 @@
+ .alert-container {
+     align-self:center ;
+     position: relative;
+     top: 10px;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 50%;
+     z-index: 1000;
+}
+ .alert {
+     padding: 20px;
+     border-radius: 5px;
+     background-color: #b8a05a;
+     color: #333;
+     text-align: center;
+     position: relative;
+}
+ .alert .close {
+     position: absolute;
+     top: 5px;
+     right: 10px;
+     cursor: pointer;
+     font-size: 20px;
+}
+/* Fade out animation for dismissal */
+ @keyframes fadeOut {
+     0% {
+         opacity: 1;
+    }
+     100% {
+         opacity: 0;
+    }
+}
+ .fadeOut {
+     animation: fadeOut 0.5s forwards;
+}
+ .main-container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     padding: 20px;
+}
+ .container {
+     max-width: 600px;
+     width: 100%;
+     background-color: #f9f9f9;
+     border-radius: 10px;
+     padding: 20px;
+     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+ .profile-page-heading {
+     font-size: 24px;
+     font-weight: bold;
+     margin-bottom: 20px;
+     text-align: center;
+}
+ .profile-photo-container {
+     text-align: center;
+     margin-bottom: 20px;
+}
+ .profile-photo-container img {
+     border-radius: 50%;
+     width: 150px;
+     height: 150px;
+     object-fit: cover;
+}
+ .user-content-container ul {
+     list-style: none;
+     padding: 0;
+}
+ .user-content-container li {
+     margin-bottom: 20px;
+}
+ .user-content-container label {
+     font-weight: bold;
+}
+ .user-content-container input[type="text"], .user-content-container textarea {
+     width: 100%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+}
+ .profile-save-button {
+     background-color: #007bff;
+     color: #fff;
+     border: none;
+     padding: 10px 20px;
+     border-radius: 5px;
+     cursor: pointer;
+}
+/* Responsive CSS */
+ @media screen and (max-width: 768px) {
+     .container {
+         max-width: 90%;
+    }
+}
+ @media screen and (max-width: 480px) {
+     .profile-photo-container img {
+         width: 100px;
+         height: 100px;
+    }
+     .user-content-container input[type="text"], .user-content-container textarea {
+         padding: 8px;
+    }
+     .profile-save-button {
+         padding: 8px 16px;
+    }
+}

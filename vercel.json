@@ -7,11 +7,19 @@
             "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
         },
         {
+            "src": "staticfiles/**/*",
+            "use": "@vercel/static"
+        },
+        {
             "src": "app/static/**/*",
             "use": "@vercel/static"
         }
     ],
     "routes": [
+        {
+            "src": "/static/admin/(.*)",
+            "dest": "/staticfiles/admin/$1"
+        },
         {
             "src": "/static/(.*)",
             "dest": "/app/static/$1"
@@ -21,6 +29,11 @@
             "dest": "config/asgi.py"
         }
     ],
+    "build": {
+        "commands": [
+            "python manage.py collectstatic --noinput"
+        ]
+    },
     "env": {
         "DJANGO_SETTINGS_MODULE": "config.settings.production"
     },
