@@ -1,8 +1,14 @@
 import os
 from .base import *
 # from dotenv import load_dotenv
+import logging
 
 # load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+logger = logging.getLogger(__name__)
 
 DEBUG = False
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app"]
@@ -28,5 +34,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-print(f"EMAIL_HOST_USER: {EMAIL_HOST_USER}")
-print(f"EMAIL_HOST_PASSWORD: {EMAIL_HOST_PASSWORD}")
+logger.info(f"EMAIL_HOST_USER: {EMAIL_HOST_USER}")
+logger.info(f"EMAIL_HOST_PASSWORD: {EMAIL_HOST_PASSWORD}")
