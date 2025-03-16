@@ -16,7 +16,7 @@ Usage:
 """
 
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from app.models.user_model import UserModel
 from django.forms import ModelForm
 from django.forms.widgets import FileInput
 from app.models.profile_model import ProfileModel
@@ -35,8 +35,8 @@ class CreateUserForm(UserCreationForm):
     """
 
     class Meta:
-        model = User
-        fields = ["username", "email", "password1", "password2"]
+        model = UserModel
+        fields = ["email", "password1", "password2"]
 
 
 class ProfileForm(ModelForm):

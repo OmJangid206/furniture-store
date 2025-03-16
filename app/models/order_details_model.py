@@ -38,6 +38,7 @@ class OrderDetailsModel(models.Model):
     product_image_url = models.URLField(null=True)
 
     class Meta:
+        db_table = "order_detail"
         verbose_name_plural = "Order Details" 
 
     def get_product_image_url(self):

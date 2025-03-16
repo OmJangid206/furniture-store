@@ -60,7 +60,7 @@ class FeedbackView(View):
         feedback_model = FeedbackModel(
             name=request.POST.get("name"), 
             email=request.POST.get("email"), 
-            feedback_description=request.POST.get("desc")
+            feedback_description=request.POST.get("description")
         )
         feedback_model.save()
 

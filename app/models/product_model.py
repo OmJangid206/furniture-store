@@ -36,6 +36,7 @@ class ProductModel(models.Model):
     image = CloudinaryField('products')
 
     class Meta:
+        db_table = "product"
         verbose_name_plural = "Products" 
 
     @staticmethod

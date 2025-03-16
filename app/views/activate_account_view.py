@@ -28,16 +28,13 @@ Usage:
 """
 
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, get_backends
 from django.http import HttpRequest, HttpResponse
-from django.contrib.auth.models import User
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
 from django.shortcuts import render
 from django.views import View
 from app.utils.common_utils import get_cart_count
 from app.utils.user_utils import TokenGenerator
-
+from app.models.user_model import UserModel
 
 class ActivateAccountView(View):
     """
@@ -47,7 +44,7 @@ class ActivateAccountView(View):
         get: Processes the activation token, activates the user, and logs them in.
     """
 
-    def get_user_from_uid(self, uidb64: str) -> User:
+    def get_user_from_uid(self, uidb64: str) -> UserModel:
         """
         Decodes the base64-encoded UID and retrieves the corresponding user.
 
@@ -58,21 +55,21 @@ class ActivateAccountView(View):
             User instance if found, otherwise None.
         """
         try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            return User.objects.get(pk=uid)
-        except (TypeError, OverflowError, User.DoesNotExist):
+            return UserModel.objects.get(uid=uidb64)
+        except (TypeError, OverflowError, UserModel.DoesNotExist):
             return None
 
-    def activate_user(self, request: HttpRequest, user: User) -> None:
+    def activate_user(self, request: HttpRequest, user: UserModel) -> None:
         """
         Activates the user's account and logs them in.
 
         Args:
             request (HttpRequest): The HTTP request object.
-            user (User): The user instance to be activated.
+            user (UserModel): The user instance to be activated.
         """
         user.is_active = True
         user.save()
+        user.backend = get_backends()[0].__module__ + "." + get_backends()[0].__class__.__name__
         login(request, user)
 
     def get(self, request: HttpRequest, uidb64: str, token: str) -> HttpResponse:

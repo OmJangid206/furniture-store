@@ -39,15 +39,15 @@
             <!-- Add new item if Admin login -->
             {% if request.user.is_superuser %}
                 <button class="add-btn">
-                    <a href="http://127.0.0.1:8000/admin/app/productmodel/add/">Add product</a>
+                    <a href="{{ request.scheme }}://{{ request.get_host }}/admin/app/productmodel/add/">Add product</a>
                 </button>
 
                 <button class="add-btn">
-                    <a href="http://127.0.0.1:8000/admin/app/categorymodel/add/">Add Category </a>
+                    <a href="{{ request.scheme }}://{{ request.get_host }}/admin/app/categorymodel/add/">Add Category</a>
                 </button>
 
                 <button class="add-btn">
-                    <a href="http://127.0.0.1:8000/admin/app/servicemodel/add/">Add Service </a>
+                    <a href="{{ request.scheme }}://{{ request.get_host }}/admin/app/servicemodel/add/">Add Service</a>
                 </button>
             {% endif %}
         </div>

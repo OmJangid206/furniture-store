@@ -25,6 +25,7 @@ class ServiceModel(models.Model):
     service_name = models.CharField(max_length=50)
 
     class Meta:
+        db_table = "service"
         verbose_name_plural = "Services" 
 
     @staticmethod

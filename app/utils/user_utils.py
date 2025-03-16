@@ -1,3 +1,5 @@
+import uuid
+import base64
 import requests
 from django.core.mail import send_mail
 from django.conf import settings
@@ -37,4 +39,14 @@ class TokenGenerator(PasswordResetTokenGenerator):
             str: The hash value.
         """
         return text_type(user.pk) + text_type(timestamp)
- 
+
+def generate_uuid() -> str:
+    """
+    Generates a URL-safe, base64-encoded UUID.
+
+    Returns:
+        str: A URL-safe, base64-encoded UUID as a string.
+    """
+    raw_uuid_bytes = uuid.uuid4().bytes
+    encoded_uuid = base64.urlsafe_b64encode(raw_uuid_bytes).rstrip(b'=').decode('utf-8')
+    return encoded_uuid

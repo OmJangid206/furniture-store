@@ -20,7 +20,6 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponseRedirect
 from app.models.order_model import OrderModel
-from app.models.order_details_model import OrderDetailsModel
 
 
 class CancelOrderView(LoginRequiredMixin, View):

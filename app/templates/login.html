@@ -33,15 +33,15 @@
             <input type="hidden" name="return_url" value="{{ return_url }}">
             {% endif %}
             <!--Name-->
-            <div class="user">
-                <label for="username">Email</label>
-                <input type="text" name="username" id="username" class="username-input" placeholder="Email" />
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="email-input" placeholder="Email" />
             </div>
 
             <!--Password-->
             <div class="password">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="pass-input" placeholder="Password" />
+                <input type="password" name="password" id="password" class="pass-input" placeholder="Password" autocomplete="current-password" />
             </div>
 
             <button class="login-button">Log in</button>

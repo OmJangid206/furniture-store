@@ -10,9 +10,9 @@ Features:
 - Uses a custom model manager for optimized queries.
 """
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 from .product_model import ProductModel
 
 class CartModel(models.Model):
@@ -25,7 +25,7 @@ class CartModel(models.Model):
         product_qty (int): The quantity of the product in the cart.
         created_at (datetime): The timestamp when the cart item was added.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cart_items")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart_items")
     product = models.ForeignKey(
         ProductModel, on_delete=models.CASCADE, default="", null=True, blank=True
     )
@@ -33,6 +33,7 @@ class CartModel(models.Model):
     created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
+        db_table = "cart"
         verbose_name_plural = "Carts"
 
     def __str__(self):

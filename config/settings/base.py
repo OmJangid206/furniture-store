@@ -1,14 +1,19 @@
-from pathlib import Path
 import os
+from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from dotenv import load_dotenv
 
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parents[2]  # Moves up 2 levels
 
 # SECRET_KEY is used to provide cryptographic signing.
 # SECURITY WARNING: Keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+
+# user model custom fields
+AUTH_USER_MODEL = 'app.UserModel'
 
 # INSTALLED_APPS lists all the enabled Django apps in the project.
 INSTALLED_APPS = [
@@ -20,7 +25,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "app",
     "cloudinary",
-    "cloudinary_storage",
+    "cloudinary_storage"
+]
+
+AUTHENTICATION_BACKENDS = [
+    'app.utils.auth_backend.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 # MIDDLEWARE lists classes that process requests and responses in Django.
@@ -66,8 +76,10 @@ DATABASES = {
 }
 
 # WSGI_APPLICATION points to the WSGI app used to serve the app in production.
+# ASGI_APPLICATION points to the ASGI app used to serve the app in production.
 # It defines how Django interacts with the web server to handle requests.
-WSGI_APPLICATION = "config.wsgi.application"
+# WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 # AUTH_PASSWORD_VALIDATORS is a list of validators to enforce password security
 AUTH_PASSWORD_VALIDATORS = [

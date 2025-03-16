@@ -16,7 +16,7 @@ Models:
     - OrderItem: Represents an item within an order, containing details of the product, 
       quantity, and price.
 """
-
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -49,9 +49,9 @@ class OrderModel(models.Model):
         updated_at (DateTimeField): The timestamp when the order was last updated.
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    fname = models.CharField(max_length=150, default="", null=False)
-    lname = models.CharField(max_length=150, default="", null=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=150, default="", null=False)
+    last_name = models.CharField(max_length=150, default="", null=False)
     email = models.CharField(max_length=150, default="", null=False)
     phone = models.CharField(max_length=150, default="", null=False)
     address = models.TextField(null=False)
@@ -76,6 +76,7 @@ class OrderModel(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
+        db_table = "order"
         verbose_name_plural = "Orders" 
 
     def __str__(self):

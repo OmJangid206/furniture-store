@@ -17,7 +17,7 @@ from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.contrib.auth.models import User
+from app.models.user_model import UserModel
 
 from app.models.profile_model import ProfileModel
 from app.models.order_model import OrderModel
@@ -57,7 +57,7 @@ class CheckoutView(LoginRequiredMixin, View):
             "cart_count": cart_count,
         }
         return render(request, "checkout.html", context)
-
+ 
 
 class PlaceOrderView(LoginRequiredMixin, View):
     """
@@ -75,12 +75,12 @@ class PlaceOrderView(LoginRequiredMixin, View):
             HttpResponse: Redirects to the orders page.
             JsonResponse: Returns success message if payment is via Razorpay.
         """
-        current_user = User.objects.filter(id=request.user.id).first()
+        current_user = UserModel.objects.filter(uid=request.user.uid).first()
 
         # Update user details if missing
         if not current_user.first_name:
-            current_user.first_name = request.POST.get("fname")
-            current_user.last_name = request.POST.get("lname")
+            current_user.first_name = request.POST.get("firstName")
+            current_user.last_name = request.POST.get("lastName")
             current_user.save()
 
         # Create or update user profile
@@ -96,8 +96,8 @@ class PlaceOrderView(LoginRequiredMixin, View):
         # Create new order
         new_order = OrderModel(
             user=request.user,
-            fname=request.POST.get("fname"),
-            lname=request.POST.get("lname"),
+            first_name=request.POST.get("firstName"),
+            last_name=request.POST.get("lastName"),
             email=request.POST.get("email"),
             phone=request.POST.get("phone"),
             address=request.POST.get("address"),
@@ -164,7 +164,6 @@ class RazorpayCheckView(LoginRequiredMixin, View):
             JsonResponse: A JSON response containing the total price of cart items.
         """
         razorpay_key = os.environ["RAZORPAY_KEY"]
-        print(f"razorpay_key: {razorpay_key}")
         cart_items = CartModel.objects.filter(user=request.user)
         total_price = total_cart_price([item.product for item in cart_items], cart_items)
         return JsonResponse({"total_price": total_price, "razorpay_key": razorpay_key})

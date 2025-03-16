@@ -11,8 +11,8 @@ $(document).ready(function () {
         e.preventDefault();
 
         // Retrieve form field values.
-        var fname = $("[name='fname']").val();
-        var lname = $("[name='lname']").val();
+        var firstName = $("[name='firstName']").val();
+        var lastName = $("[name='lastName']").val();
         var email = $("[name='email']").val();
         var phone = $("[name='phone']").val();
         var address = $("[name='address']").val();
@@ -23,7 +23,7 @@ $(document).ready(function () {
         var token = $("[name='csrfmiddlewaretoken']").val();
 
         // Validate form fields.
-        if (fname == "" || lname == "" || email == "" || phone == "" || address == "" || city == "" || state == "" || pincode == "" || country == "") {
+        if (firstName == "" || lastName == "" || email == "" || phone == "" || address == "" || city == "" || state == "" || pincode == "" || country == "") {
             swal("Alert!", "All fields are mandatory", "error");
             return false;
         } else {
@@ -32,7 +32,6 @@ $(document).ready(function () {
                 method: "GET",
                 url: "/proceed-to-pay",
                 success: function (response) {
-                    console.log(response);
 
                     // Configure Razorpay options.
                     var options = {
@@ -45,8 +44,8 @@ $(document).ready(function () {
                         "handler": function (responseb){
                             // Prepare order data after successful payment.
                             data = {
-                                "fname": fname,
-                                "lname": lname,
+                                "firstName": firstName,
+                                "lastName": lastName,
                                 "email": email,
                                 "phone": phone,
                                 "address": address,
@@ -72,7 +71,7 @@ $(document).ready(function () {
                             });
                         },
                         "prefill": {
-                            "name": fname + " " + lname,
+                            "name": firstName + " " + lastName,
                             "email": email,
                             "contact": phone
                         },

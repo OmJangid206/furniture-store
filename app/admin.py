@@ -7,6 +7,7 @@ This module registers the application's models with the Django admin interface,
 allowing administrators to manage database records through the Django admin panel.
 
 Registered Models:
+- UserModel
 - ProfileModel
 - ProductModel
 - CategoryModel
@@ -25,6 +26,7 @@ Usage:
 from django.contrib import admin
 
 # Import models from the current app
+from .models.user_model import UserModel
 from .models.profile_model import ProfileModel
 from .models.product_model import ProductModel
 from .models.category_model import CategoryModel
@@ -37,6 +39,7 @@ from .models.order_details_model import OrderDetailsModel
 from .models.cart_model import CartModel
 
 # Register models to make them available in the Django Admin Panel
+admin.site.register(UserModel)
 admin.site.register(ProfileModel)
 admin.site.register(ProductModel)
 admin.site.register(CategoryModel)

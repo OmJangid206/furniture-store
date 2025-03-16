@@ -33,6 +33,7 @@ class SliderModel(models.Model):
     image = CloudinaryField('slider')
 
     class Meta:
+        db_table = "slider"
         # verbose_name = "Slider"
         verbose_name_plural = "Sliders"
 

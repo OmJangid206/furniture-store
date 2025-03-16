@@ -1,22 +1,22 @@
 """
-model/profile_model.py
+This module defines the `ProfileModel`, which extends the default Django `User` model 
+to store additional user profile details.
 
-This module contains the `ProfileModel` class that extends the default Django `User` model 
-to store additional information related to a user's profile.
-
-The `ProfileModel` class allows you to store extra details such as the user's name, title, 
-description, contact information, profile image, and password recovery token. 
-
-It ensures that each user has a unique profile associated with their account, which can be accessed 
-and updated for a more personalized user experience.
+Features:
+- Associates a profile with each user account.
+- Stores personal details such as name, title, and description.
+- Includes contact information like phone, address, city, state, country, and pincode.
+- Supports profile image storage using Cloudinary.
+- Provides a password recovery token for account recovery.
+- Tracks profile creation timestamps.
 
 Classes:
-    ProfileModel (models.Model): A model for storing user profile details such as name, title, description, 
-                                 profile image, and contact information.
+- ProfileModel: A model that stores additional user details beyond the standard Django `User` model.
 """
+
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 
@@ -46,31 +46,32 @@ class ProfileModel(models.Model):
         __str__(): Returns a string representation of the profile in the format: "{username}'s profile".
     """
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     name = models.CharField(max_length=100, default="Unknown (default)")
     title = models.CharField(max_length=100, default="Untitled (default)")
     
     # Default description text
-    desc_text = "Hey there is default text description"
-    desc = models.CharField(max_length=200, null=True, default=desc_text)
+    description_text = "Hey this is default text description"
+    description = models.CharField(max_length=200, null=True, default=description_text)
     
     # profile_img = models.ImageField(default="default.jpg", upload_to="profile/")
     # Upload profile images to Cloudinary instead of 'media/profile/'
     profile_img = CloudinaryField('profile', default="profile/default.jpg")
-    phone = models.CharField(max_length=150, default="", null=True)
-    address = models.TextField(null=False, default="")
-    city = models.CharField(max_length=150, default="", null=True)
-    state = models.CharField(max_length=150, default="", null=True)
-    country = models.CharField(max_length=150, default="", null=True)
-    pincode = models.CharField(max_length=150, default="", null=True)
+    phone = models.CharField(max_length=150, default='', null=True, blank=True)
+    address = models.TextField(default='',null=True, blank=True)
+    city = models.CharField(max_length=150,default='', null=True, blank=True)
+    state = models.CharField(max_length=150, default='', null=True, blank=True)
+    country = models.CharField(max_length=150, default='', null=True,  blank=True)
+    pincode = models.CharField(max_length=150, default='', null=True, blank=True)
     
     # For password recovery
-    forget_password_token = models.CharField(max_length=100, null=True)
+    forget_password_token = models.CharField(max_length=100, default='', null=True, blank=True)
     
     # Timestamp for when the profile was created
     created_at = models.DateTimeField(default=timezone.now, editable=False)
 
     class Meta:
+        db_table = "profile"
         verbose_name_plural = "Profiles" 
         
     def __str__(self):

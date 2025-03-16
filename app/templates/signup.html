@@ -23,42 +23,38 @@
 <main class="signup-container">
     <div class="container ">
         <h2 class="text-center">Sign Up</h2>
-        <form action="/signup" , method="POST">
+        <form action="/signup" method="POST">
             {% csrf_token %}
 
             <div class="fname">
-                <label for="first_name">First Name</label>
-                <input type = "text" id="fname" name="fname" id="fname" required></input>
+                <label for="first-name">First Name</label>
+                <input type = "text" id="first-name" name="firstName" value="{{ first_name }}" required></input>
 
             </div>
             <div class="lname">
-                <label for="last_name">Last Name</label>
-                <input type = "text" id="lname" name="lname" id="lname" required></input>
+                <label for="last-name">Last Name</label>
+                <input type = "text" id="last-name" name="lastName" value="{{ last_name }}" required></input>
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
                 <!-- {{form.email}}
                 {{form.email.errors}} -->
-                <input type = "text" id="email" name="email" id="email" required></input>
+                <input type = "text" id="email" name="email" value="{{ email }}" required></input>
             </div>
 
             <div class="form-group">
-                <label for="password1">Password</label>
-                <!-- {{form.password1}}
-                {{form.password1.errors}} -->
-                <input type = "text" id="pass1" name="pass1" id="pass1" required></input>
+                <label for="password">Password</label>
+                <!-- {{form.password}}
+                {{form.password.errors}} -->
+                <input type = "text" id="password" name="password" autocomplete="off" autocorrect="off" spellcheck="false" required></input>
             </div>
 
 
          
             <div class="form-group">
-                <label for="password2">Confirm Password</label>
-                <!-- {{ form.password2 }}
-                {% for error in form.password2.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %} -->
-                <input type = "text" id="pass2" name="pass2" id="pass2" required></input>
+                <label for="confirm-password">Confirm Password</label>
+                <input type = "text" id="confirm-password" name="confirmPassword" autocomplete="off" autocorrect="off" spellcheck="false" required ></input>
             </div>
 
          

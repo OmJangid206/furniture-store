@@ -31,6 +31,7 @@ class ContactModel(models.Model):
     description = models.TextField()
 
     class Meta:
+        db_table = "contact"
         verbose_name_plural = "Contacts"
 
     def __str__(self):

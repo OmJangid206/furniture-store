@@ -31,14 +31,13 @@
                     <!--First name-->
                     <div class="alignment">
                         <label>First Name</label>
-                        <input type="text" class="form-control" value="{{ request.user.first_name }}" name="fname"
-                            placeholder="Enter first name">
+                        <input type="text" class="form-control" value="{{ request.user.first_name }}" name="firstName" placeholder="Enter first name">
                     </div>
 
                     <!--Last name-->
                     <div class="alignment">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" value="{{ request.user.last_name }}" name="lname" placeholder="Enter first name" required>
+                        <input type="text" class="form-control" value="{{ request.user.last_name }}" name="lastName" placeholder="Enter last name" required>
                     </div>
 
                     <!--Email -->
@@ -50,37 +49,37 @@
                     <!--Phone-->
                     <div class="alignment">
                         <label >Phone</label>
-                        <input type="text" class="form-control" value="{{ userprofile.phone }}" pattern="[0-9]{10}" name="phone" placeholder="Enter phone number" title="Please enter only alphabets" required >
+                        <input type="text" class="form-control" value="{{ user_profile.phone }}" pattern="[0-9]{10}" name="phone" placeholder="Enter phone number" title="Please enter only alphabets" required >
                     </div>
 
                     <!--Address-->
                     <div class="alignment">
                         <label >Address</label>
-                        <textarea class="form-control" name="address" required placeholder="Enter Address">{{ userprofile.address }}</textarea>
+                        <textarea class="form-control" name="address" required placeholder="Enter Address">{{ user_profile.address }}</textarea>
                     </div>
 
                     <!--City-->
                     <div class="alignment">
                         <label>City</label>
-                        <input type="text" class="form-control" value="{{ userprofile.city }}" name="city" placeholder="Enter city" required>
+                        <input type="text" class="form-control" value="{{ user_profile.city }}" name="city" placeholder="Enter city" required>
                     </div>
 
                     <!--State-->
                     <div class="alignment">
                         <label>State</label>
-                        <input type="text" class="form-control"  value="{{ userprofile.state }}" name="state" placeholder="Enter state" required>
+                        <input type="text" class="form-control"  value="{{ user_profile.state }}" name="state" placeholder="Enter state" required>
                     </div>
 
                     <!--Country -->
                     <div class="alignment">
                         <label>Country</label>
-                        <input type="text" class="form-control" Required value="{{ userprofile.country }}" name="country" placeholder="Enter Country" required>
+                        <input type="text" class="form-control" Required value="{{ user_profile.country }}" name="country" placeholder="Enter Country" required>
                     </div>
 
                     <!--Pincode no.-->
                     <div class="alignment">
                         <label>Pin Code</label>
-                        <input type="text" class="form-control" value="{{ userprofile.pincode }}" pattern="[0-9]{6}" name="pincode" placeholder="Enter pincode" required>
+                        <input type="text" class="form-control" value="{{ user_profile.pincode }}" pattern="[0-9]{6}" name="pincode" placeholder="Enter pincode" required>
                     </div>
                 </div>
             </div>

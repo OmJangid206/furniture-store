@@ -1,4 +1,5 @@
 """
+WSGI (Web Server Gateway Interface )
 https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 

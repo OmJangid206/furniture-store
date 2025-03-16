@@ -21,7 +21,8 @@ class CategoryModel(models.Model):
     name = models.CharField(max_length=50)
 
     class Meta:
-        verbose_name_plural = "Categories"  
+        db_table = "category"
+        verbose_name_plural = "Categories"
 
     @staticmethod
     def get_all_categories():

@@ -29,7 +29,8 @@ class FeedbackModel(models.Model):
     feedback_description = models.TextField()
 
     class Meta:
-        verbose_name_plural = "Feedbacks"  
+        db_table = "feedback"
+        verbose_name_plural = "Feedback"
 
     def __str__(self):
         """
