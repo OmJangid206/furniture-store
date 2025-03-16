@@ -23,5 +23,8 @@
     ],
     "env": {
         "DJANGO_SETTINGS_MODULE": "config.settings.production"
+    },
+    "git": {
+        "enabled": false
     }
 }
