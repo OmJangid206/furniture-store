@@ -36,7 +36,6 @@ AUTHENTICATION_BACKENDS = [
 # MIDDLEWARE lists classes that process requests and responses in Django.
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -103,9 +102,6 @@ USE_TZ = True
 # STATICFILES_DIRS defines the locations of the static files on the file system.
 STATIC_URL = "/static/"
 
-# Directory where collectstatic will store files (needed for Vercel)
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
 # Directory for user-uploaded static files (not collected by collectstatic)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "app/static")]
 
@@ -135,6 +131,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # SECURE_CROSS_ORIGIN_OPENER_POLICY controls the security of window.opener when opening a new window.
 # `same-origin-allow-popups` allows popups but restricts cross-origin access for security.
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
-
-# Use WhiteNoise storage to manage static files efficiently
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
