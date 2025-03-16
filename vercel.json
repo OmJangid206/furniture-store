@@ -7,11 +7,11 @@
             "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
         },
         {
-            "src": "staticfiles/**/*",
+            "src": "app/static/**/*",
             "use": "@vercel/static"
         },
         {
-            "src": "app/static/**/*",
+            "src": "staticfiles/**/*",
             "use": "@vercel/static"
         }
     ],
@@ -23,6 +23,10 @@
         {
             "src": "/static/(.*)",
             "dest": "/app/static/$1"
+        },
+        {
+            "src": "/static/(.*)",
+            "dest": "/staticfiles/$1"
         },
         {
             "src": "/(.*)",
