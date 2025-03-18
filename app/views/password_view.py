@@ -183,7 +183,7 @@ class ForgetPasswordView(View):
         profile_obj.save()
 
         # Send the reset password email
-        send_forget_password_mail(user.email, token)
+        send_forget_password_mail(request, user.email, token)
 
         message = "An email has been sent with password reset instructions."
         return self._response(request, message, success=True)

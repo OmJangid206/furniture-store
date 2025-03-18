@@ -52,7 +52,7 @@
     <h1>Thank You for Registering!</h1>
     <p>We are thrilled to have you as part of our community. Welcome aboard!</p>
     <p>Wishing you a delightful shopping experience with us.</p>
-    <a href="http://127.0.0.1:8000/product" class="button">Start Shopping</a>
+    <a href="{{ request.scheme }}://{{ request.get_host }}/product" class="button">Start Shopping</a>
 </div>
 
 {% endblock body%}

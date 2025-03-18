@@ -5,8 +5,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 from six import text_type
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
 
-def send_forget_password_mail(email, token):
+
+def send_forget_password_mail(request, email, token):
     """
     Sends a password reset email with a reset link.
 
@@ -14,13 +16,15 @@ def send_forget_password_mail(email, token):
         email (str): The recipient's email address.
         token (str): The unique token for resetting the password.
     """
+    current_site = get_current_site(request)
+    reset_url = f"{request.scheme}://{current_site.domain}/change-password/{token}/"
     subject = "Reset Your Password"
-    message = f"Hi, click the link below to reset your password:\n\n" \
-              f"http://127.0.0.1:8000/change-password/{token}/"
+    message = f"Hi, click the link below to reset your password:\n\n{reset_url}"
 
     send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
-    # Disable SSL certificate verification (for local testing only)
-    requests.post("http://127.0.0.1:8000/forget-password/", verify=False)
+    
+    # Call the password reset API dynamically using the correct domain
+    requests.post(f"{request.scheme}://{current_site.domain}/forget-password/", verify=False)
 
 class TokenGenerator(PasswordResetTokenGenerator):
     """
