@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
-DEBUG = os.environ["DEBUG"] 
+DEBUG = os.getenv("DEBUG", False)
 ALLOWED_HOSTS = [".vercel.app"]
 
 # database settings (PostgreSQL)
