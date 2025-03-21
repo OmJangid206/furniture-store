@@ -24,6 +24,7 @@ Usage:
 """
 
 from django.contrib import admin
+from django.contrib.auth.models import Group
 
 # Import models from the current app
 from .models.user_model import UserModel
@@ -37,6 +38,12 @@ from .models.service_model import ServiceModel
 from .models.order_model import OrderModel
 from .models.order_details_model import OrderDetailsModel
 from .models.cart_model import CartModel
+
+admin.site.site_header = "Furniture Store Administration"
+admin.site.index_title = "Welcome to Furniture Store Admin Panel"
+
+# Un-register group models
+admin.site.unregister(Group)
 
 # Register models to make them available in the Django Admin Panel
 admin.site.register(UserModel)
