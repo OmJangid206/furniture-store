@@ -86,7 +86,7 @@ class CartView(View):
             product_id (str): The ID of the product being modified.
             action (str): The action to perform ('add', 'remove', 'subtract').
         """
-        product = get_object_or_404(ProductModel, uid=product_id)
+        product = get_object_or_404(ProductModel, id=product_id)
         cart_item = CartModel.objects.filter(user=request.user, product=product).first()
 
         if not cart_item:
